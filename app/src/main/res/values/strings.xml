@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Meme Creator</string>
+    <string name="reload_memes">Memes neu laden</string>
+    <string name="swipe_left_or_right">swipe nach links oder rechts</string>
+</resources>

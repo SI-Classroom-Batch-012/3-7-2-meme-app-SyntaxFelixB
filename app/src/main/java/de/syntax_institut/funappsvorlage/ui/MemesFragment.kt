@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
+import de.syntax_institut.funappsvorlage.adapter.MemeAdapter
 import de.syntax_institut.funappsvorlage.databinding.FragmentMemesBinding
 
 class MemesFragment : Fragment() {
@@ -27,8 +28,6 @@ class MemesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         binding = FragmentMemesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,7 +39,13 @@ class MemesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnRefresh.setOnClickListener {
+            viewModel.loadMemes()
+        }
 
+        viewModel.memes.observe(viewLifecycleOwner) {
+            binding.rvMemes.adapter = MemeAdapter(it, viewModel)
+        }
 
         // Der SnapHelper sorgt dafür, dass die RecyclerView immer auf das aktuelle List Item springt
         val helper: SnapHelper = PagerSnapHelper()
